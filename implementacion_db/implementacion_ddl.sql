@@ -46,7 +46,8 @@ COPY public.clasificacion_superior (codigo, reino, filio, clase, orden, familia)
 FROM 'C:\Users\manue\Desktop\pr_datos\implementacion_db\csvs\T_clasificacion_superior.csv'
 DELIMITER ';' CSV HEADER
 
--- Utilizando \copy en lugar de COPY
-copy public.clasificacion_superior (codigo, reino, filio, clase, orden, familia) 
-FROM 'C:/Users/manue/Desktop/pr_datos/implementacion_db/csvs/T_clasificacion_superior.csv' 
-DELIMITER ';' CSV HEADER;
+-- Carga de datos masiva para informacion_taxonomica
+
+COPY public.informacion_taxonomica (id_taxonomia, estado_taxonomico, ovservacion_taxonomica, rango_taxonomico, codigo_clasificacion)
+FROM 'C:\Users\manue\Desktop\pr_datos\implementacion_db\csvs\T_informacion_taxonomica.csv'
+DELIMITER ';' CSV HEADER
