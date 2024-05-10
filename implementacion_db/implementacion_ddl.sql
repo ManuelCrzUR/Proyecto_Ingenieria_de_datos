@@ -1,3 +1,5 @@
+-- Creacion de tablas (DDL)
+
 CREATE TABLE clasificacion_superior (
 	codigo integer,
 	reino varchar(40),
@@ -36,3 +38,15 @@ CREATE TABLE especies_amenazadas (
 	PRIMARY KEY (id_nomenclatura),
 	FOREIGN KEY (codigo_int) REFERENCES intraespecificidad_epiteto
 );
+
+
+-- Carga de datos masiva para clasificacion_superior
+
+COPY public.clasificacion_superior (codigo, reino, filio, clase, orden, familia)
+FROM 'C:\Users\manue\Desktop\pr_datos\implementacion_db\csvs\T_clasificacion_superior.csv'
+DELIMITER ';' CSV HEADER
+
+-- Utilizando \copy en lugar de COPY
+copy public.clasificacion_superior (codigo, reino, filio, clase, orden, familia) 
+FROM 'C:/Users/manue/Desktop/pr_datos/implementacion_db/csvs/T_clasificacion_superior.csv' 
+DELIMITER ';' CSV HEADER;
