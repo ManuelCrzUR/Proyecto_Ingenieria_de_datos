@@ -11,13 +11,13 @@ CREATE TABLE clasificacion_superior (
 );
 
 CREATE TABLE informacion_taxonomica (
-	id_taxonomia varchar(40),
-	estado_taxonomico varchar(40),
+	id_taxonomia varchar(500),
+	estado_taxonomico varchar(100),
 	observacion_taxonomica varchar(600),
-	rango_taxonomico varchar(40),
-	codigo_clasificacion varchar(40),
+	rango_taxonomico varchar(500),
+	codigo_clasificacion varchar(500),
 	PRIMARY KEY (id_taxonomia), 
-	FOREIGN KEY (codigo_clasificacion) REFERENCES clasificacion_superior
+	FOREIGN KEY (codigo_clasificacion) REFERENCES clasificacion_superior (codigo)
 );
 
 CREATE TABLE intraespecificidad_epiteto (
@@ -48,6 +48,7 @@ copy clasificacion_superior from 'C:\Users\Public\Datos\Clasificacion_Supeior.cs
 
 -- Carga de datos masiva para informacion_taxonomica
 
-COPY public.informacion_taxonomica (id_taxonomia, estado_taxonomico, ovservacion_taxonomica, rango_taxonomico, codigo_clasificacion)
-FROM 'C:\Users\manue\Desktop\pr_datos\implementacion_db\csvs\T_informacion_taxonomica.csv'
-DELIMITER ';' CSV HEADER
+
+COPY public.informacion_taxonomica (id_taxonomia, estado_taxonomico, observacion_taxonomica, rango_taxonomico, codigo_clasificacion)
+FROM 'C:\Users\Public\Datos\Informacion_Taxonomica1.csv'
+DELIMITER ',' CSV HEADER
