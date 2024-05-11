@@ -1,7 +1,7 @@
 -- Creacion de tablas (DDL)
 
 CREATE TABLE clasificacion_superior (
-	codigo varchar(40),
+	codigo varchar(500),
 	reino varchar(40),
 	filio varchar(40),
 	clase varchar(40),
@@ -42,9 +42,9 @@ CREATE TABLE especies_amenazadas (
 
 -- Carga de datos masiva para clasificacion_superior
 
-COPY public.clasificacion_superior (codigo, reino, filio, clase, orden, familia)
-FROM 'C:\Users\manue\Desktop\pr_datos\implementacion_db\csvs\T_clasificacion_superior.csv'
-DELIMITER ';' CSV HEADER
+
+copy clasificacion_superior from 'C:\Users\Public\Datos\Clasificacion_Supeior.csv' delimiter ',' csv header;
+
 
 -- Carga de datos masiva para informacion_taxonomica
 
