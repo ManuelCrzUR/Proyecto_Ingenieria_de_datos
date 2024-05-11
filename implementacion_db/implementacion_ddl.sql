@@ -1,7 +1,7 @@
 -- Creacion de tablas (DDL)
 
 CREATE TABLE clasificacion_superior (
-	codigo integer,
+	codigo varchar(40),
 	reino varchar(40),
 	filio varchar(40),
 	clase varchar(40),
@@ -13,9 +13,9 @@ CREATE TABLE clasificacion_superior (
 CREATE TABLE informacion_taxonomica (
 	id_taxonomia varchar(40),
 	estado_taxonomico varchar(40),
-	observacion_taxonomica varchar(80),
+	observacion_taxonomica varchar(200),
 	rango_taxonomico varchar(40),
-	codigo_clasificacion integer,
+	codigo_clasificacion varchar(40),
 	PRIMARY KEY (id_taxonomia), 
 	FOREIGN KEY (codigo_clasificacion) REFERENCES clasificacion_superior
 );
@@ -25,7 +25,7 @@ CREATE TABLE intraespecificidad_epiteto (
 	genero varchar(40),
 	epiteto_especifico varchar(40),
 	epiteto_intraespecifico varchar(40),
-	nombre_vernaculo varchar(60),
+	nombre_vernaculo varchar(150),
 	codigo integer,
 	PRIMARY KEY (codigo_int),
 	FOREIGN KEY (codigo) REFERENCES clasificacion_superior
