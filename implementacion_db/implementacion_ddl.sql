@@ -26,9 +26,9 @@ CREATE TABLE intraespecificidad_epiteto (
 	epiteto_especifico varchar(40),
 	epiteto_intraespecifico varchar(40),
 	nombre_vernaculo varchar(500),
-	codigo integer,
+	codigo_clasificacion varchar(500),
 	PRIMARY KEY (codigo_int),
-	FOREIGN KEY (codigo) REFERENCES clasificacion_superior
+	FOREIGN KEY (codigo_clasificacion) REFERENCES clasificacion_superior (codigo)
 );
 
 CREATE TABLE especies_amenazadas (
@@ -52,3 +52,8 @@ copy clasificacion_superior from 'C:\Users\Public\Datos\Clasificacion_Supeior.cs
 COPY public.informacion_taxonomica (id_taxonomia, estado_taxonomico, observacion_taxonomica, rango_taxonomico, codigo_clasificacion)
 FROM 'C:\Users\Public\Datos\Informacion_Taxonomica1.csv'
 DELIMITER ',' CSV HEADER
+
+
+-- Carga de datos masiva para intraespecificidad_epiteto
+	
+copy intraespecificidad_epiteto from 'C:\Users\Public\Datos\Intraespecificidad_Epiteto.csv' delimiter ',' csv header;
