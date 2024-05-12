@@ -33,7 +33,7 @@ CREATE TABLE intraespecificidad_epiteto (
 
 CREATE TABLE especies_amenazadas (
 	id_nomenclatura varchar(40),
-	estado_de_amenaza varchar(500),
+	estado_de_amenaza varchar(2103),
 	intraespecificidad_epiteto integer,
 	PRIMARY KEY (id_nomenclatura),
 	FOREIGN KEY (intraespecificidad_epiteto) REFERENCES intraespecificidad_epiteto (codigo_int)
