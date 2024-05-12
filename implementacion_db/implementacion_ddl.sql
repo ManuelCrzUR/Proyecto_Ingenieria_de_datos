@@ -33,7 +33,7 @@ CREATE TABLE intraespecificidad_epiteto (
 
 CREATE TABLE especies_amenazadas (
 	id_nomenclatura varchar(40),
-	estado_de_amenaza varchar(2103),
+	estado_amenaza varchar(2103),
 	intraespecificidad_epiteto integer,
 	id_amenaza varchar(500),
 	PRIMARY KEY (id_amenaza),
@@ -63,3 +63,4 @@ copy intraespecificidad_epiteto from 'C:\Users\Public\Datos\Intraespecificidad_E
 -- Carga de datos masiva para especies_amenazadas
 
 
+copy especies_amenazadas from 'C:\Users\Public\Datos\Especies_Amenazadas.csv' delimiter ',' csv header;
