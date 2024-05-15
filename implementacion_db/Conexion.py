@@ -14,7 +14,7 @@ try:
     
     cursor = connection.cursor()
     
-    #Tabla1 CLASIFICACIÓN SUPERIOR
+#Tabla1 CLASIFICACIÓN SUPERIOR
     query_tabla1 = "Select * From clasificacion_superior;"
     cursor.execute(query_tabla1)
     tipo_clasificacion = cursor.fetchall() #Lista de tuplas con la info de la tabla. No están los nombres de las colunas de la tabla tipo_empleo
@@ -28,7 +28,7 @@ try:
         print(clasificacion) #Imprime cada tupla de la tabla tipo de empleo
         
 
-    #Tabla2 INFORMACIÓN TAXONOMICA
+#Tabla2 INFORMACIÓN TAXONOMICA
     query_tabla2 = "Select * From informacion_taxonomica;"
     cursor.execute(query_tabla2)
     tipo_info = cursor.fetchall() #Lista de tuplas con la info de la tabla. No están los nombres de las colunas de la tabla tipo_empleo
@@ -41,7 +41,7 @@ try:
     for taxonomia in tipo_info:
         print(taxonomia) #Imprime cada tupla de la tabla tipo de empleo
         
-    #Tabla3 INTRAESPECIFICIDAD EPITETO
+#Tabla3 INTRAESPECIFICIDAD EPITETO
     query_tabla3 = "Select * From intraespecificidad_epiteto;"
     cursor.execute(query_tabla3)
     tipo_intra = cursor.fetchall() #Lista de tuplas con la info de la tabla. No están los nombres de las colunas de la tabla tipo_empleo
@@ -67,7 +67,6 @@ try:
     for especies in tipo_esp:
         print(especies) #Imprime cada tupla de la tabla tipo de empleo
 
-    
 except Exception as ex:
     print(ex)
 
