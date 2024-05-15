@@ -1,5 +1,4 @@
--- Creacion de tablas (DDL)
-
+-- Creación de tablas (DDL)
 CREATE TABLE clasificacion_superior (
 	codigo varchar(500),
 	reino varchar(40),
@@ -40,27 +39,16 @@ CREATE TABLE especies_amenazadas (
 	FOREIGN KEY (intraespecificidad_epiteto) REFERENCES intraespecificidad_epiteto (codigo_int)
 );
 
-
-
 -- Carga de datos masiva para clasificacion_superior
-
-
 copy clasificacion_superior from 'C:\Users\Public\Datos\Clasificacion_Supeior.csv' delimiter ',' csv header;
 
-
 -- Carga de datos masiva para informacion_taxonomica
-
-
 COPY public.informacion_taxonomica (id_taxonomia, estado_taxonomico, observacion_taxonomica, rango_taxonomico, codigo_clasificacion)
 FROM 'C:\Users\Public\Datos\Informacion_Taxonomica1.csv'
 DELIMITER ',' CSV HEADER
 
-
 -- Carga de datos masiva para intraespecificidad_epiteto
-	
 copy intraespecificidad_epiteto from 'C:\Users\Public\Datos\Intraespecificidad_Epiteto.csv' delimiter ',' csv header;
 
 -- Carga de datos masiva para especies_amenazadas
-
-
 copy especies_amenazadas from 'C:\Users\Public\Datos\Especies_Amenazadas.csv' delimiter ',' csv header;
