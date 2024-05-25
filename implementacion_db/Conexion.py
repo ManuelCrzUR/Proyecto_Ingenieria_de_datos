@@ -7,7 +7,7 @@ try:
     connection = psycopg2.connect(
        host="localhost",
        database="repaso", #el nombre que se le haya puesto al DB al crearlo en sql
-       user="postgres",
+       user="pr_final",
        password="123456789" #poner contraseña propia
    )
     print('Conexión exitosa')
