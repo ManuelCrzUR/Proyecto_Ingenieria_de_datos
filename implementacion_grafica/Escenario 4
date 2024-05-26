@@ -1,0 +1,44 @@
+from dash import Dash, html, dcc
+import plotly.express as px
+import pandas as pd
+import psycopg2
+
+try:
+    connection = psycopg2.connect(
+        host='localhost',
+        user='postgres',
+        password='123456789',
+        database='Proyecto2',
+        port="5432"
+    )
+    print("Conexión exitosa")
+    cursor = connection.cursor()
+    cursor.execute("select  genero, nombre_vernaculo from intraespecificidad_epiteto")
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+
+    # Convertir los resultados a un DataFrame de Pandas
+    df = pd.DataFrame(rows, columns=['Estado Taxonómico', 'Rango Taxonómico'])
+
+    app = Dash(_name_)
+    fig = px.bar(df, x='Estado Taxonómico', y='Rango Taxonómico', color='Estado Taxonómico')
+
+    app.layout = html.Div(children=[
+        html.H1(children='Gráfico Estado Taxonómico'),
+        html.Div(children='''
+            Dash: Aplicación para graficar datos
+        '''),
+        dcc.Graph(
+            id='example-graph',
+            figure= fig 
+        )
+    ])
+
+    if _name_ == 'main':
+        app.run_server(debug=False)
+except Exception as ex:
+    print(ex)
+finally:
+    connection.close()
+    print("Conexión finalizada")
