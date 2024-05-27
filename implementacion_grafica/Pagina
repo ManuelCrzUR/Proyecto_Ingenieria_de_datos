@@ -228,7 +228,110 @@ try:
         html.Div(children='''
             Dash: Aplicación para graficar datos
         '''),
-        dcc.Graph(id='example-graph', figure=fig_escenario_4)
+        dcc.Graph(id='example-graph', figure=fig_escenario_4),
+
+        # Análisis y Conclusiones
+        html.Div([
+            html.H2("Análisis y Conclusiones"),
+            html.P("""
+                N:
+                    Ventaja: La gráfica nos permite observar cada uno de los estados de amenaza (crítico, vulnerable, en peligro) para las plantas y los animales,
+                    y también se observa una mayor cantidad de plantas en estado crítico en comparación a los animales. 
+                    Desventaja: Los datos analizados aunque nos muestran la cantidad de especies y su estado de amenaza no nos indica con exactitud cuales
+                    son las especies que se encuentran amenazadas solo si son ICN o ICZN.
+                M:
+                    Ventaja: Nos permite visualizar dos gráficos de barra distintos para cada una de las nomenclaturas presentes. 
+                    En este caso, es posible representar el comportamiento de cada uno de los estados y la cantidad exacta mediante un hover a cada una de las barras.
+                    Desventaja: Personas que no puedan realizar un hover con el mouse, no podrán ver el valor exacto para cada una de las columnas en las gráficas. 
+                    Además, es complejo determinar un número total de los datos para cada una de las gráficas.
+                M:
+                    Ventaja: Como se puede ver en la gráfica, las especies mayormente amenazadas son los animales (ICN) que las plantas (ICZN),
+                    es decir, su estado de vulnerabilidad es mayor en comparación al de las plantas.
+                    Desventaja:  A pesar de que se puede observar un porcentaje aproximado de las especies en cada uno de los estados de amenaza,
+                    no se informa la causa de dicha vulnerabilidad tanto en los animales como en las plantas.
+            """),
+            html.P("""
+                N:
+                    Ventaja: Podemos observar que la gráfica representa la cantidad de filos que se encuentran en cada uno de los reinos, 
+                    evidenciando que el reino con la menor cantidad de filos encontrados es el reino fungi, el cual cuenta con un total de 81 especies.
+                    Desventaja: La gráfica muestra las especies pero,  no indica específicamente a cuáles de ellas se está haciendo referencia dentro de cada filo, 
+                    lo que genera dificultad en determinar sus filos respectivos.
+                M:
+                    Ventajas: Se usa un gráfico apropiado para determinar el total de especies en cada una de las familias presentes en la base de datos, 
+                    esto ayuda a las personas consultantes a saber que el gráfico habla de la totalidad de un conjunto de datos determinados. 
+                    Es una buena alternativa si se quiere ser más específico en un estudio por familias de las especies en peligro a nivel nacional.
+                    Desventajas: En este caso, es muy complicado de determinar e identificar los datos que son pequeños, 
+                    dado que por su proporción cuentan con una visibilidad bastante reducida. Es difícil saber la cantidad de datos para cada uno de los filos que se pueden ver en cada una de las gráficas.
+                M:
+                    Ventaja: Similarmente al escenario anterior, se puede determinar de manera precisa el nivel de la afectación en cada reino 
+                    (animalia, fungi, plantae) dependiendo de la filo a la que pertenece, en este caso, 
+                    se observa que la especie más evidentemente afectada es del reino plantae, por encima del reino animalia y esta a su vez, por encima del reino fungi.
+                    Desventaja: No se puede observar claramente los datos pertenecientes a cada reino en el eje x, es decir, que filos pertenecen al reino animalia, cuales al reino fungi y cuales al reino vegetal.
+            """),
+            html.P("""
+                N:
+                    Ventaja: Según la gráfica, podemos evidenciar que de los rangos taxonómicos (especie, subespecie, variedad)
+                    la cifra más elevada en comparación a los demás, es el aceptado, el cual tiene un total de 1283 especies aceptadas según su rango taxonómico  comparación de las subespecies y la variedad.
+                    Desventaja: Los datos a analizar no especifican el rango taxonómico al que se hace referencia y a cuál de ellas es su estado taxonómico
+                    (aceptado, dudoso, sinónimo, válido), solo lo dice de una forma muy general.
+                M:
+                    Ventajas: La gráfica evidencia que, entre los diferentes rangos taxonómicos (especie, subespecie, variedad), 
+                    el estado "aceptado" muestra la cifra más elevada, con un total de 1283 especies según su rango taxonómico. 
+                    Esta información permite identificar de manera precisa el rango taxonómico predominante y su aceptación en comparación con subespecies y variedades.
+                    Desventajas: La gráfica no especifica de manera clara a qué se refiere cada una de las categorías del estado taxonómico.
+                    Esto puede llevar a confusiones al interpretar los datos, ya que no queda explícito qué características o criterios definen cada estado taxonómico en el contexto presentado.
+                M:
+                    Ventaja: Se puede observar que las cifras más altas de la gráfica son las correspondientes al rango de especies,
+                    en comparación a los rangos de subespecie y variedad, además de tener en cuenta que dichos datos también son aplicados solamente a los estados aceptado 
+                    y válido, ya que en los otros rangos no se tienen especies de esta categoría.
+                    Desventaja: No se especifica claramente a que hace referencia cada una de las categorías del estado taxonómico.
+            """),
+            html.P("""
+                N:
+                    Ventaja: Al haber especies sin nombre vernáculo, existe la posibilidad de identificar con mayor facilidad en qué géneros hay especies 
+                    que no poseen nombre vernáculo y así enfocarse en ellas de ser necesario.
+                    Desventajas: Al tener tantos datos, la gráfica puede desorientar el enfoque que tiene la misma y ser confuso al momento de analizarla.
+                M:
+                    Ventajas: Es fácil de identificar los datos que se encuentran lejos de la media respecto a los máximos, dado que por el hover es fácil reconocer de qué información se trata.
+                    Desventajas: Dada la cantidad de datos que se podían encontrar, todos los gráficos cuentan con una dificultad de cómo se ve individualmente y por su proporción,
+                    podría ser complicado identificar tantas categorías y barras que se encuentran presente en el gráfico.
+                M:
+                    Ventaja: Permite ver cuántas especies no poseen nombre común, teniendo en cuenta el género al que pertenecen.
+                    Desventaja: Es una gran cantidad de datos y es difícil realizar una visualización clara para efectuar un análisis.
+            """),
+            html.H3("CONCLUSIONES"),
+            html.P("""
+                N:
+                    La realización de todo el proyecto se basa en la creación del modelo entidad relación el cual nos permite generalizar la problemática a tratar 
+                    y saber cuáles son los temas con mayor relevancia y cómo es que se debe manejar la base de datos a partir de este.
+                    La creación de los escenarios permite visualizar el proyecto desde un enfoque diferente ya que permite crear unos casos de estudios donde toca
+                    especificar de qué se tratan y a partir de la base de datos que se estudió mirar las relaciones que se pueden realizar entre las tablas.
+                    El desarrollo del proyecto fue de manera muy fluida porque entre todos los integrantes del grupo nos entendimos y cuando alguien decía algo se tenía en cuenta y se miraba si era lo mejor.
+                    El proyecto sirve mucho porque permite comprender los temas que se analizaron en clase a mayor profundización y así comprenderlo y saber cómo es que se analiza y 
+                    se generan las tablas y relaciones a partir de una base de datos.
+                    A través de una base de datos se puede analizar muchos temas y se pueden generar diferentes implementaciones según sea la necesidad y lo que se quiere mostrar con la base de datos.
+            """),
+            html.P("""
+                M:
+                    Se satisface el uso de las herramientas relacionadas con la manipulación de datos, bases de datos, y representación de consultas mediante figuras gráficas.
+                    Se encontró una relación con el uso de las herramientas y métodos vistos en clase mediante la posible aplicación en estudios científicos relacionados con biodiversidad 
+                    y pérdida de especies en determinado lugar.
+                    Se entiende de manera práctica el uso de los datos y ciencia de datos para el entendimiento de cualquier entorno posible siempre que se tengan datos relevantes 
+                    sobre los cuales se puedan realizar consultas y análisis estadísticos.
+                    Es importante contar con una buena selección de datos, para que la información que se implementa en las bases de datos sea la apropiada y 
+                    cuente con relevancia en los estudios en los que se va a aplicar.
+            """),
+            html.P("""
+                M:
+                    Al finalizar este proyecto, se pudo evidenciar una de las tantas aplicaciones en situaciones de la vida real teniendo en cuenta todo lo visto en clase. 
+                    Además se desarrollaron conocimientos más allá del aprendizaje previsto en aula.
+                    Por otra parte, se logró sobrepasar con éxito algunos obstáculos que se presentaron a lo largo del desarrollo del trabajo.
+                    Desde mi punto de vista, la parte más importante del trabajo fue la selección del tema y la realización de los diagramas entidad relación y modelo relacional.
+                    Además, la parte de la creación de las gráficas fue muy dinámica, sin embargo, se tuvo que realizar minuciosamente debido a la cantidad de datos que se tienen en cuenta,
+                    especialmente en el último escenario.
+                    Finalmente, el trabajo se desarrolló con éxito gracias al buen trabajo en grupo, basándonos en el respeto y teniendo en cuenta las opiniones y sugerencias de cada integrante.
+            """)
+        ])
     ], style={'backgroundColor': '#FFFFFF'})
 
     if __name__ == '__main__':
@@ -239,3 +342,5 @@ except Exception as ex:
 finally:
     connection.close()
     print("Conexión finalizada")
+
+
