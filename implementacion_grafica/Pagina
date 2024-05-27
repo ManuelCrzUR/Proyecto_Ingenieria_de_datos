@@ -1,10 +1,9 @@
-# Escenario 1
-
 from dash import Dash, html, dcc
 import plotly.express as px
 import pandas as pd
 import psycopg2
 
+connection = None
 try:
     connection = psycopg2.connect(
         host='localhost',
@@ -15,6 +14,8 @@ try:
     )
     print("Conexión exitosa")
     cursor = connection.cursor()
+    
+    app = Dash(__name__)
     
     # Escenario 1
     cursor.execute("SELECT id_nomenclatura, estado_amenaza, id_amenaza FROM especies_amenazadas")
@@ -31,30 +32,23 @@ try:
         else:
             print("No se puede añadir el dato: ", row)
 
-    # Convertir los resultados a DataFrames de Pandas
     df_icn = pd.DataFrame(lista_icn, columns=['Nomenclatura', 'Estado de Amenaza', 'ID Amenaza'])
     df_iczn = pd.DataFrame(lista_iczn, columns=['Nomenclatura', 'Estado de Amenaza', 'ID Amenaza'])
 
-    # Contar el número de especies en cada estado de amenaza
     df_icn_count = df_icn['Estado de Amenaza'].value_counts().reset_index()
     df_icn_count.columns = ['Estado de Amenaza', 'Número de Especies']
 
     df_iczn_count = df_iczn['Estado de Amenaza'].value_counts().reset_index()
     df_iczn_count.columns = ['Estado de Amenaza', 'Número de Especies']
 
-    app = Dash(__name__)
-
-    # Definir un diccionario de colores específico para cada estado de amenaza
     color_mapping = {
         'EN': '#FF0000',  # Rojo
         'CR': '#FFA500',  # Naranja
         'VU': '#FFFF00',  # Amarillo
     }
 
-    # Obtener el orden de categorías del primer DataFrame
     category_order = df_icn_count['Estado de Amenaza'].tolist()
 
-    # Crear las gráficas con colores específicos y el mismo orden de categorías
     fig_icn = px.bar(df_icn_count, 
                      x='Estado de Amenaza', 
                      y='Número de Especies', 
@@ -71,7 +65,6 @@ try:
                       color_discrete_map=color_mapping,
                       category_orders={'Estado de Amenaza': category_order})
 
-    # Configurar el fondo transparente para las gráficas
     fig_icn.update_layout({
         'plot_bgcolor': 'rgba(0, 0, 0, 0)',
         'paper_bgcolor': 'rgba(0, 0, 0, 0)',
@@ -82,36 +75,8 @@ try:
         'paper_bgcolor': 'rgba(0, 0, 0, 0)',
     })
 
-    app.layout = html.Div([
-        html.H1("Análisis de Especies Amenazadas"),
-        dcc.Graph(figure=fig_icn),
-        dcc.Graph(figure=fig_iczn),
-        html.P("Con esto concluiríamos el análisis del proyecto esperando que sea de su agrado.", 
-               style={'backgroundColor': '#FFFFFF'}),  # Color de fondo de la página
-        html.P("""
-            N:
-                Ventaja: La gráfica nos permite observar cada uno de los estados de amenaza (crítico, vulnerable, en peligro) para las plantas y los animales,
-                y también se observa una mayor cantidad de plantas en estado crítico en comparación a los animales. 
-                Desventaja: Los datos analizados aunque nos muestran la cantidad de especies y su estado de amenaza no nos indica con exactitud cuales
-                son las especies que se encuentran amenazadas solo si son ICN o ICZN.
-
-            M:
-                Ventaja: Nos permite visualizar dos gráficos de barra distintos para cada una de las nomenclaturas presentes. 
-                En este caso, es posible representar el comportamiento de cada uno de los estados y la cantidad exacta mediante un hover a cada una de las barras.
-                Desventaja: Personas que no puedan realizar un hover con el mouse, no podrán ver el valor exacto para cada una de las columnas en las gráficas. 
-                Además, es complejo determinar un número total de los datos para cada una de las gráficas.
-
-            M:
-                Ventaja: Como se puede ver en la gráfica, las especies mayormente amenazadas son los animales (ICN) que las plantas (ICZN),
-                es decir, su estado de vulnerabilidad es mayor en comparación al de las plantas.
-                Desventaja:  A pesar de que se puede observar un porcentaje aproximado de las especies en cada uno de los estados de amenaza,
-                no se informa la causa de dicha vulnerabilidad tanto en los animales como en las plantas.
-        """, style={'color': 'black'})
-    ])
-
     # Escenario 2
-
-    cursor.execute("SELECT clasificacion_superior.reino, clasificacion_superior.filio FROM clasificacion_superior")
+    cursor.execute("SELECT reino, filio FROM clasificacion_superior")
     rows = cursor.fetchall()
     
     lista_a = []
@@ -128,57 +93,135 @@ try:
         else:
             print("Dato no es posible de añadir")
 
-    # Contar la frecuencia de cada filo en cada reino
     df_fungi = pd.DataFrame(lista_f, columns=['Filo'])
     df_plantae = pd.DataFrame(lista_p, columns=['Filo'])
     df_animalia = pd.DataFrame(lista_a, columns=['Filo'])
 
     fig_fungi = px.pie(df_fungi, names='Filo', title='Fungi - Distribución de Filos', 
                        hover_data={'Filo': True})
-    fig_fungi.update_traces(textinfo='label+percent', pull=[0.1, 0.1, 0.1])  # Agregar etiquetas de datos
+    fig_fungi.update_traces(textinfo='label+percent', pull=[0.1, 0.1, 0.1])
     fig_plantae = px.pie(df_plantae, names='Filo', title='Plantae - Distribución de Filos', 
-                        hover_data={'Filo': True})
-    fig_plantae.update_traces(textinfo='label+percent', pull=[0.1, 0.1, 0.1])  # Agregar etiquetas de datos
-    fig_animalia = px.pie(df_animalia, names='Filo', title='Animalia - Distribución de Filos', 
                          hover_data={'Filo': True})
-    fig_animalia.update_traces(textinfo='label+percent', pull=[0.1, 0.1, 0.1])  # Agregar etiquetas de datos
+    fig_plantae.update_traces(textinfo='label+percent', pull=[0.1, 0.1, 0.1])
+    fig_animalia = px.pie(df_animalia, names='Filo', title='Animalia - Distribución de Filos', 
+                          hover_data={'Filo': True})
+    fig_animalia.update_traces(textinfo='label+percent', pull=[0.1, 0.1, 0.1])
 
-    app.layout = html.Div([
-        html.H1("Distribución de Filos por Reino"),
-        html.Div([
-            dcc.Graph(figure=fig_fungi),
-            dcc.Graph(figure=fig_plantae),
-            dcc.Graph(figure=fig_animalia)
-        ]),
-        html.P("""
-            N:
-                Ventaja: Podemos observar que la gráfica representa la cantidad de filos que se encuentran en cada uno de los reinos, 
-                evidenciando que el reino con la menor cantidad de filos encontrados es el reino fungi, el cual cuenta con un total de 81 especies.
-                Desventaja: La gráfica muestra las especies pero no indica específicamente a cuáles de ellas se está haciendo referencia dentro de cada filo, 
-                lo que genera dificultad en determinar sus filos respectivos.
-                
-            M:
-                Ventajas: Se usa un gráfico apropiado para determinar el total de especies en cada una de las familias presentes en la base de datos, 
-                esto ayuda a las personas consultantes a saber que el gráfico habla de la totalidad de un conjunto de datos determinados. 
-                Es una buena alternativa si se quiere ser más específico en un estudio por familias de las especies en peligro a nivel nacional.
-                Desventajas: En este caso, es muy complicado de determinar e identificar los datos que son pequeños, 
-                dado que por su proporción cuentan con una visibilidad bastante reducida. Es difícil saber la cantidad de datos para cada uno de los filos que se pueden ver en cada una de las gráficas.
-
-            M:
-                Ventaja: Similarmente al escenario anterior, se puede determinar de manera precisa el nivel de la afectación en cada reino 
-                (animalia, fungi, plantae) dependiendo de la filo a la que pertenece, en este caso, 
-                se observa que la especie más evidentemente afectada es del reino plantae, por encima del reino animalia y esta a su vez, por encima del reino fungi.
-                Desventaja: No se puede observar claramente los datos pertenecientes a cada reino en el eje x, es decir, qué filos pertenecen al reino animalia, cuáles al reino fungi y cuáles al reino vegetal.
-        """, style={'color': 'black'})
-    ])
+    # Escenario 3
+    cursor.execute("SELECT estado_taxonomico, rango_taxonomico FROM informacion_taxonomica")
+    rows = cursor.fetchall()
     
-except Exception as error:
-    print("Error al conectar a la base de datos", error)
+    lista_aceptado = []
+    lista_dudoso = []
+    lista_sinonimo = []
+    lista_valido = []
+    
+    for row in rows:
+        if row[0] == 'Aceptado':
+            lista_aceptado.append(row)
+        elif row[0] == 'Dudoso':
+            lista_dudoso.append(row)
+        elif row[0] == 'Sinónimo':
+            lista_sinonimo.append(row)
+        elif row[0] == 'Válido':
+            lista_valido.append(row)
+        else:
+            print("No se puede añadir el dato: ", row)
+
+    df_aceptado = pd.DataFrame(lista_aceptado, columns=['Estado Taxonómico', 'Rango Taxonómico'])
+    df_dudoso = pd.DataFrame(lista_dudoso, columns=['Estado Taxonómico', 'Rango Taxonómico'])
+    df_sinonimo = pd.DataFrame(lista_sinonimo, columns=['Estado Taxonómico', 'Rango Taxonómico'])
+    df_valido = pd.DataFrame(lista_valido, columns=['Estado Taxonómico', 'Rango Taxonómico'])
+
+    df_aceptado_count = df_aceptado['Rango Taxonómico'].value_counts().reset_index()
+    df_aceptado_count.columns = ['Rango Taxonómico', 'Número de Especies']
+
+    df_dudoso_count = df_dudoso['Rango Taxonómico'].value_counts().reset_index()
+    df_dudoso_count.columns = ['Rango Taxonómico', 'Número de Especies']
+
+    df_sinonimo_count = df_sinonimo['Rango Taxonómico'].value_counts().reset_index()
+    df_sinonimo_count.columns = ['Rango Taxonómico', 'Número de Especies']
+
+    df_valido_count = df_valido['Rango Taxonómico'].value_counts().reset_index()
+    df_valido_count.columns = ['Rango Taxonómico', 'Número de Especies']
+
+    fig_aceptado = px.bar(df_aceptado_count, 
+                          x='Rango Taxonómico', 
+                          y='Número de Especies', 
+                          title='Aceptado - Número de Especies por Rango Taxonómico',
+                          color='Rango Taxonómico',
+                          color_discrete_map=color_mapping,
+                          category_orders={'Rango Taxonómico': category_order})
+
+    fig_dudoso = px.bar(df_dudoso_count, 
+                        x='Rango Taxonómico', 
+                        y='Número de Especies', 
+                        title='Dudoso - Número de Especies por Rango Taxonómico',
+                        color='Rango Taxonómico',
+                        color_discrete_map=color_mapping,
+                        category_orders={'Rango Taxonómico': category_order})
+
+    fig_sinonimo = px.bar(df_sinonimo_count, 
+                          x='Rango Taxonómico', 
+                          y='Número de Especies', 
+                          title='Sinónimo - Número de Especies por Rango Taxonómico',
+                          color='Rango Taxonómico',
+                          color_discrete_map=color_mapping,
+                          category_orders={'Rango Taxonómico': category_order})
+
+    fig_valido = px.bar(df_valido_count, 
+                        x='Rango Taxonómico', 
+                        y='Número de Especies', 
+                        title='Válido - Número de Especies por Rango Taxonómico',
+                        color='Rango Taxonómico',
+                        color_discrete_map=color_mapping,
+                        category_orders={'Rango Taxonómico': category_order})
+
+    fig_aceptado.update_layout({
+        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+    })
+
+    fig_dudoso.update_layout({
+        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+    })
+
+    fig_sinonimo.update_layout({
+        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+    })
+
+    fig_valido.update_layout({
+        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+    })
+
+    app.layout = html.Div(style={'backgroundColor': '#E8F5E9', 'color': '#000000'}, children=[
+        html.H1('Visualizaciones de Biodiversidad', style={'textAlign': 'center'}),
+        html.Div([
+            dcc.Graph(id='graph-icn', figure=fig_icn),
+            dcc.Graph(id='graph-iczn', figure=fig_iczn),
+        ]),
+        html.Div([
+            dcc.Graph(id='graph-fungi', figure=fig_fungi),
+            dcc.Graph(id='graph-plantae', figure=fig_plantae),
+            dcc.Graph(id='graph-animalia', figure=fig_animalia),
+        ]),
+        html.Div([
+            dcc.Graph(id='graph-aceptado', figure=fig_aceptado),
+            dcc.Graph(id='graph-dudoso', figure=fig_dudoso),
+            dcc.Graph(id='graph-sinonimo', figure=fig_sinonimo),
+            dcc.Graph(id='graph-valido', figure=fig_valido),
+        ]),
+    ])
+
+    if __name__ == '__main__':
+        app.run_server(debug=True)
+except Exception as ex:
+    print("Error durante la conexión:", ex)
 finally:
     if connection:
         cursor.close()
         connection.close()
         print("Conexión cerrada")
-
-if __name__ == '__main__':
-    app.run_server(debug=True)
