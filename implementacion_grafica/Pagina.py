@@ -214,12 +214,14 @@ try:
                     Ventaja: La gráfica nos permite observar cada uno de los estados de amenaza (crítico, vulnerable, en peligro) para las plantas y los animales,
                     y también se observa una mayor cantidad de plantas en estado crítico en comparación a los animales. 
                     Desventaja: Los datos analizados aunque nos muestran la cantidad de especies y su estado de amenaza no nos indica con exactitud cuales
-                    son las especies que se encuentran amenazadas solo si son ICN o ICZN.
+                    son las especies que se encuentran amenazadas solo si son ICN o ICZN.""", style={'padding': '20px', 'font-size' : '27px'}),
+        html.P("""
                 M:
                     Ventaja: Nos permite visualizar dos gráficos de barra distintos para cada una de las nomenclaturas presentes. 
                     En este caso, es posible representar el comportamiento de cada uno de los estados y la cantidad exacta mediante un hover a cada una de las barras.
                     Desventaja: Personas que no puedan realizar un hover con el mouse, no podrán ver el valor exacto para cada una de las columnas en las gráficas. 
-                    Además, es complejo determinar un número total de los datos para cada una de las gráficas.
+                    Además, es complejo determinar un número total de los datos para cada una de las gráficas. """, style={'padding': '20px', 'font-size' : '27px'}),
+        html.P("""
                 M:
                     Ventaja: Como se puede ver en la gráfica, las especies mayormente amenazadas son los animales (ICN) que las plantas (ICZN),
                     es decir, su estado de vulnerabilidad es mayor en comparación al de las plantas.
@@ -238,13 +240,15 @@ try:
                     Ventaja: Podemos observar que la gráfica representa la cantidad de filos que se encuentran en cada uno de los reinos, 
                     evidenciando que el reino con la menor cantidad de filos encontrados es el reino fungi, el cual cuenta con un total de 81 especies.
                     Desventaja: La gráfica muestra las especies pero,  no indica específicamente a cuáles de ellas se está haciendo referencia dentro de cada filo, 
-                    lo que genera dificultad en determinar sus filos respectivos.
+                    lo que genera dificultad en determinar sus filos respectivos.""", style={'padding': '20px', 'font-size' : '27px'}),
+        html.P("""
                 M:
                     Ventajas: Se usa un gráfico apropiado para determinar el total de especies en cada una de las familias presentes en la base de datos, 
                     esto ayuda a las personas consultantes a saber que el gráfico habla de la totalidad de un conjunto de datos determinados. 
                     Es una buena alternativa si se quiere ser más específico en un estudio por familias de las especies en peligro a nivel nacional.
                     Desventajas: En este caso, es muy complicado de determinar e identificar los datos que son pequeños, 
-                    dado que por su proporción cuentan con una visibilidad bastante reducida. Es difícil saber la cantidad de datos para cada uno de los filos que se pueden ver en cada una de las gráficas.
+                    dado que por su proporción cuentan con una visibilidad bastante reducida. Es difícil saber la cantidad de datos para cada uno de los filos que se pueden ver en cada una de las gráficas.""", style={'padding': '20px', 'font-size' : '27px'}),
+        html.P("""
                 M:
                     Ventaja: Similarmente al escenario anterior, se puede determinar de manera precisa el nivel de la afectación en cada reino 
                     (animalia, fungi, plantae) dependiendo de la filo a la que pertenece, en este caso, 
@@ -262,19 +266,20 @@ try:
                     Ventaja: Según la gráfica, podemos evidenciar que de los rangos taxonómicos (especie, subespecie, variedad)
                     la cifra más elevada en comparación a los demás, es el aceptado, el cual tiene un total de 1283 especies aceptadas según su rango taxonómico  comparación de las subespecies y la variedad.
                     Desventaja: Los datos a analizar no especifican el rango taxonómico al que se hace referencia y a cuál de ellas es su estado taxonómico
-                    (aceptado, dudoso, sinónimo, válido), solo lo dice de una forma muy general.
+                    (aceptado, dudoso, sinónimo, válido), solo lo dice de una forma muy general. """, style={'padding': '20px', 'font-size' : '27px'}),
+        html.P("""
                 M:
                     Ventajas: La gráfica evidencia que, entre los diferentes rangos taxonómicos (especie, subespecie, variedad), 
                     el estado "aceptado" muestra la cifra más elevada, con un total de 1283 especies según su rango taxonómico. 
                     Esta información permite identificar de manera precisa el rango taxonómico predominante y su aceptación en comparación con subespecies y variedades.
                     Desventajas: La gráfica no especifica de manera clara a qué se refiere cada una de las categorías del estado taxonómico.
-                    Esto puede llevar a confusiones al interpretar los datos, ya que no queda explícito qué características o criterios definen cada estado taxonómico en el contexto presentado.
+                    Esto puede llevar a confusiones al interpretar los datos, ya que no queda explícito qué características o criterios definen cada estado taxonómico en el contexto presentado. """, style={'padding': '20px', 'font-size' : '27px'}),
+        html.P("""
                 M:
                     Ventaja: Se puede observar que las cifras más altas de la gráfica son las correspondientes al rango de especies,
                     en comparación a los rangos de subespecie y variedad, además de tener en cuenta que dichos datos también son aplicados solamente a los estados aceptado 
                     y válido, ya que en los otros rangos no se tienen especies de esta categoría.
-                    Desventaja: No se especifica claramente a que hace referencia cada una de las categorías del estado taxonómico.
-            """, style={'padding': '20px', 'font-size' : '27px'}),
+                    Desventaja: No se especifica claramente a que hace referencia cada una de las categorías del estado taxonómico.""", style={'padding': '20px', 'font-size' : '27px'}),
         
         html.H1(children='Gráfico Estado Taxonómico'),
         html.Div(children='''
@@ -285,15 +290,16 @@ try:
                 N:
                     Ventaja: Al haber especies sin nombre vernáculo, existe la posibilidad de identificar con mayor facilidad en qué géneros hay especies 
                     que no poseen nombre vernáculo y así enfocarse en ellas de ser necesario.
-                    Desventajas: Al tener tantos datos, la gráfica puede desorientar el enfoque que tiene la misma y ser confuso al momento de analizarla.
+                    Desventajas: Al tener tantos datos, la gráfica puede desorientar el enfoque que tiene la misma y ser confuso al momento de analizarla. """, style={'padding': '20px', 'font-size' : '27px'}),
+        html.P("""
                 M:
                     Ventajas: Es fácil de identificar los datos que se encuentran lejos de la media respecto a los máximos, dado que por el hover es fácil reconocer de qué información se trata.
                     Desventajas: Dada la cantidad de datos que se podían encontrar, todos los gráficos cuentan con una dificultad de cómo se ve individualmente y por su proporción,
-                    podría ser complicado identificar tantas categorías y barras que se encuentran presente en el gráfico.
+                    podría ser complicado identificar tantas categorías y barras que se encuentran presente en el gráfico. """, style={'padding': '20px', 'font-size' : '27px'}),
+        html.P("""
                 M:
                     Ventaja: Permite ver cuántas especies no poseen nombre común, teniendo en cuenta el género al que pertenecen.
-                    Desventaja: Es una gran cantidad de datos y es difícil realizar una visualización clara para efectuar un análisis.
-            """, style={'padding': '20px', 'font-size' : '27px'}),
+                    Desventaja: Es una gran cantidad de datos y es difícil realizar una visualización clara para efectuar un análisis. """, style={'padding': '20px', 'font-size' : '27px'}),
 
         # Análisis y Conclusiones
         html.Div([
